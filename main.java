@@ -18,7 +18,9 @@ public class main {
 
             System.out.println("\n------------------------------------");
 
-            if (player.speed >= enemy.speed) {
+            // ❌ speed → private
+            // ✅ pakai getter
+            if (player.getSpeed() >= enemy.getSpeed()) {
                 player.takeTurn(enemy);
                 if (enemy.isAlive()) enemy.takeTurn(player);
             } else {

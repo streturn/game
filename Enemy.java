@@ -6,7 +6,7 @@ public class Enemy extends Character {
     private Random rand = new Random();
 
     public Enemy(String name) {
-        super(name, 150, 60, 25, 20, 15);
+        super(name, 120, 60, 25, 20, 15);
 
         skills = new ArrayList<>();
         skills.add(new Fireball());
@@ -16,7 +16,9 @@ public class Enemy extends Character {
     public void takeTurn(Character enemy) {
         System.out.println("\n===== GILIRAN ENEMY =====");
 
-        if (mana >= 15 && rand.nextBoolean()) {
+        // ❌ mana → private
+        // ✅ pakai getter
+        if (getMana() >= 15 && rand.nextBoolean()) {
             Skill skill = skills.get(rand.nextInt(skills.size()));
             System.out.println("Enemy menggunakan skill: " + skill.getName());
             skill.use(this, enemy);

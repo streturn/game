@@ -6,10 +6,12 @@ public class DrainLife extends Skill {
 
     @Override
     public void use(Character user, Character target) {
-        if (!user.useMana(manaCost)) return;
+        if (!user.useMana(getManaCost())) return;
 
         int dmg = 20;
         target.takeDamage(dmg);
-        user.hp = Math.min(user.maxHp, user.hp + dmg);
+
+        int newHp = user.getHp() + dmg;
+        user.setHp(newHp);
     }
 }

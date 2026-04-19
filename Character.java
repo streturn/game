@@ -1,18 +1,17 @@
-import java.util.*;
 
 public abstract class Character {
-    protected String name;
+    private String name;
 
-    protected int maxHp, hp;
-    protected int maxMana, mana;
+    private int maxHp, hp;
+    private int maxMana, mana;
 
-    protected int attack;
-    protected int defense;
-    protected int speed;
+    private int attack;
+    private int defense;
+    private int speed;
 
-    protected double critChance;
-    protected double critDamage;
-    protected double lifesteal;
+    private double critChance;
+    private double critDamage;
+    private double lifesteal;
 
     public Character(String name, int hp, int mana, int attack, int defense, int speed) {
         this.name = name;
@@ -32,6 +31,33 @@ public abstract class Character {
         this.lifesteal = 0.1;
     }
 
+    // ================= GETTER =================
+    public String getName() { return name; }
+
+    public int getHp() { return hp; }
+    public int getMaxHp() { return maxHp; }
+
+    public int getMana() { return mana; }
+    public int getMaxMana() { return maxMana; }
+
+    public int getAttack() { return attack; }
+    public int getDefense() { return defense; }
+    public int getSpeed() { return speed; }
+
+    public double getCritChance() { return critChance; }
+    public double getCritDamage() { return critDamage; }
+    public double getLifesteal() { return lifesteal; }
+
+    // ================= SETTER (AMAN) =================
+    public void setHp(int hp) {
+        this.hp = Math.max(0, Math.min(maxHp, hp));
+    }
+
+    public void setMana(int mana) {
+        this.mana = Math.max(0, Math.min(maxMana, mana));
+    }
+
+    // ================= LOGIC =================
     public boolean isAlive() {
         return hp > 0;
     }
@@ -46,13 +72,12 @@ public abstract class Character {
         System.out.println("Crit    : " + (critChance * 100) + "%");
         System.out.println("CritDmg : " + critDamage + "x");
         System.out.println("Lifesteal: " + (lifesteal * 100) + "%");
-
     }
 
     public void attack(Character target) {
-        System.out.println("\n" + name + " menyerang " + target.name);
+        System.out.println("\n" + name + " menyerang " + target.getName());
 
-        int damage = Math.max(0, attack - target.defense);
+        int damage = Math.max(0, attack - target.getDefense());
 
         boolean crit = false;
         if (Math.random() < critChance) {
@@ -68,14 +93,13 @@ public abstract class Character {
         target.takeDamage(damage);
 
         int heal = (int)(damage * lifesteal);
-        hp = Math.min(maxHp, hp + heal);
+        setHp(hp + heal);
 
         if (heal > 0) System.out.println("Lifesteal +" + heal);
     }
 
     public void takeDamage(int dmg) {
-        hp -= dmg;
-        hp = Math.max(0, hp);
+        setHp(hp - dmg);
         System.out.println(name + " HP: " + hp + "/" + maxHp);
     }
 
@@ -84,12 +108,13 @@ public abstract class Character {
             System.out.println("Mana tidak cukup");
             return false;
         }
-        mana -= cost;
+        setMana(mana - cost);
         return true;
     }
 
     public void regenMana(int amount) {
-        mana = Math.min(maxMana, mana + amount);
+        setMana(mana + amount);
     }
+
     public abstract void takeTurn(Character enemy);
 }

@@ -6,9 +6,12 @@ public class PowerStrike extends Skill {
 
     @Override
     public void use(Character user, Character target) {
-        if (!user.useMana(manaCost)) return;
+        if (!user.useMana(getManaCost())) return;
 
-        int dmg = user.attack * 2;
+        // ❌ user.attack
+        // ✅ pakai getter
+        int dmg = user.getAttack() * 2;
+
         target.takeDamage(dmg);
     }
 }

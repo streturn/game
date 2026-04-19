@@ -6,11 +6,14 @@ public class Fireball extends Skill {
 
     @Override
     public void use(Character user, Character target) {
-        if (!user.useMana(manaCost)) return;
+        if (!user.useMana(getManaCost())) return;
 
         int dmg = 30;
-        System.out.println(user.name + " menggunakan Fireball");
-        target.takeDamage(dmg);
 
+        // ❌ user.name
+        // ✅ pakai getter
+        System.out.println(user.getName() + " menggunakan Fireball");
+
+        target.takeDamage(dmg);
     }
 }

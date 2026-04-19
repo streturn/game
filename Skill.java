@@ -1,6 +1,6 @@
 public abstract class Skill {
-    protected String name;
-    protected int manaCost;
+    private String name;
+    private int manaCost;
 
     public Skill(String name, int manaCost) {
         this.name = name;
