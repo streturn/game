@@ -10,9 +10,6 @@ public class main {
             System.out.println("              TURN START            ");
             System.out.println("====================================");
 
-            player.applyEffects();
-            enemy.applyEffects();
-
             System.out.println("\n[PLAYER STATUS]");
             player.showFullStats();
 

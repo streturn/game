@@ -8,7 +8,9 @@ public class Fireball extends Skill {
     public void use(Character user, Character target) {
         if (!user.useMana(manaCost)) return;
 
-        target.takeDamage(30);
-        target.addEffect(new Burn(3));
+        int dmg = 30;
+        System.out.println(user.name + " menggunakan Fireball");
+        target.takeDamage(dmg);
+
     }
 }

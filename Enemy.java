@@ -6,11 +6,10 @@ public class Enemy extends Character {
     private Random rand = new Random();
 
     public Enemy(String name) {
-        super(name, 100, 40, 18, 8, 10);
+        super(name, 150, 60, 25, 20, 15);
 
         skills = new ArrayList<>();
-        skills.add(new PoisonStrike());
-        skills.add(new PowerStrike());
+        skills.add(new Fireball());
     }
 
     @Override

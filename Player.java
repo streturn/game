@@ -11,7 +11,6 @@ public class Player extends Character {
         skills = new ArrayList<>();
         skills.add(new PowerStrike());
         skills.add(new Fireball());
-        skills.add(new PoisonStrike());
         skills.add(new DrainLife());
     }
 

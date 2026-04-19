@@ -14,8 +14,6 @@ public abstract class Character {
     protected double critDamage;
     protected double lifesteal;
 
-    protected List<StatusEffect> effects;
-
     public Character(String name, int hp, int mana, int attack, int defense, int speed) {
         this.name = name;
 
@@ -32,8 +30,6 @@ public abstract class Character {
         this.critChance = 0.2;
         this.critDamage = 1.5;
         this.lifesteal = 0.1;
-
-        this.effects = new ArrayList<>();
     }
 
     public boolean isAlive() {
@@ -51,15 +47,6 @@ public abstract class Character {
         System.out.println("CritDmg : " + critDamage + "x");
         System.out.println("Lifesteal: " + (lifesteal * 100) + "%");
 
-        if (effects.isEmpty()) {
-            System.out.println("Effect  : None");
-        } else {
-            System.out.print("Effect  : ");
-            for (StatusEffect e : effects) {
-                System.out.print(e.getClass().getSimpleName() + "(" + e.duration + ") ");
-            }
-            System.out.println();
-        }
     }
 
     public void attack(Character target) {
@@ -104,22 +91,5 @@ public abstract class Character {
     public void regenMana(int amount) {
         mana = Math.min(maxMana, mana + amount);
     }
-
-    public void addEffect(StatusEffect effect) {
-        effects.add(effect);
-    }
-
-    public void applyEffects() {
-        List<StatusEffect> remove = new ArrayList<>();
-
-        for (StatusEffect e : effects) {
-            e.apply(this);
-            e.duration--;
-            if (e.duration <= 0) remove.add(e);
-        }
-
-        effects.removeAll(remove);
-    }
-
     public abstract void takeTurn(Character enemy);
 }
