@@ -1,11 +1,29 @@
+import java.util.*;
+
 public class Enemy extends Character {
 
-    public Enemy(String name, int hp, int attackDamage, int mana) {
-        super(name, hp, attackDamage, mana);
+    private List<Skill> skills;
+    private Random rand = new Random();
+
+    public Enemy(String name) {
+        super(name, 100, 40, 18, 8, 10);
+
+        skills = new ArrayList<>();
+        skills.add(new PoisonStrike());
+        skills.add(new PowerStrike());
     }
 
     @Override
-    public void useSkill(Character target, int choice) {
-        System.out.println("Enemy tidak memiliki skill");
+    public void takeTurn(Character enemy) {
+        System.out.println("\n===== GILIRAN ENEMY =====");
+
+        if (mana >= 15 && rand.nextBoolean()) {
+            Skill skill = skills.get(rand.nextInt(skills.size()));
+            System.out.println("Enemy menggunakan skill: " + skill.getName());
+            skill.use(this, enemy);
+        } else {
+            System.out.println("Enemy melakukan attack");
+            attack(enemy);
+        }
     }
 }
